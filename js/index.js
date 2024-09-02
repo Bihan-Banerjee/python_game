@@ -50,6 +50,8 @@ function isCollide(snake){
 
 function gameEngine(){
     
+    musicSound.play();
+    
     if(isCollide(snakeArr)){
         gameOverSound.play();
         musicSound.pause();
