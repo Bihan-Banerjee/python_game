@@ -11,6 +11,39 @@ let snakeArr=[
 ]
 food={x:6,y:7};
 
+
+let selectedSpeed = 10;
+
+document.getElementById('startGame').addEventListener('click', () => {
+    const level = document.getElementById('levels').value;
+    switch (level) {
+        case 'easy':
+            selectedSpeed = 7.5;
+            break;
+        case 'medium':
+            selectedSpeed = 12.5;
+            break;
+        case 'hard':
+            selectedSpeed = 20;
+            break;
+        case 'custom':
+            selectedSpeed = prompt("Enter custom speed (1-20):", 10);
+            selectedSpeed = Math.min(Math.max(selectedSpeed, 1), 20); 
+            break;
+        default:
+            selectedSpeed = 10;
+    }
+    startGame();
+});
+
+function startGame() {
+    speed = selectedSpeed;
+    document.getElementById('levelSelector').style.display = 'none';
+    musicSound.play();
+    window.requestAnimationFrame(main);
+}
+
+
 function main(ctime){
     window.requestAnimationFrame(main);
     if(score>3){
@@ -28,7 +61,7 @@ function main(ctime){
     if(score>20){
         speed=20;
     }
-    //console.log(ctime);
+    
     if((ctime-lastPaintTime)/1000<1/speed){
         return;
     }
@@ -49,6 +82,8 @@ function isCollide(snake){
 }
 
 function gameEngine(){
+    
+    musicSound.play();
     
     if(isCollide(snakeArr)){
         gameOverSound.play();
